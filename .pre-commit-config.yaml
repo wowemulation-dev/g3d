@@ -1,0 +1,30 @@
+---
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks.git
+      rev: "v4.5.0"
+      hooks:
+          - id: check-merge-conflict
+          - id: check-executables-have-shebangs
+          - id: check-yaml
+          - id: end-of-file-fixer
+    # Commit message and change log validation helpers
+    - repo: https://github.com/twisted/towncrier.git
+      rev: "23.11.0"
+      hooks:
+          - id: towncrier-check
+            files: \.changelog/
+    # Linters
+    - repo: https://github.com/adrienverge/yamllint.git
+      rev: "v1.35.1"
+      hooks:
+          - id: yamllint
+    - repo: https://github.com/DavidAnson/markdownlint-cli2.git
+      rev: "v0.13.0"
+      hooks:
+          - id: markdownlint-cli2
+            name: markdownlint
+    # Languages
+    - repo: https://github.com/cheshirekow/cmake-format-precommit
+      rev: "v0.6.13"
+      hooks:
+          - id: cmake-format
