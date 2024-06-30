@@ -19,19 +19,4 @@ set(CMAKE_INSTALL_NAME_DIR ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIBDIR})
 set(CMAKE_BUILD_WITH_INSTALL_RPATH OFF)
 
 # -----------------------------------------------------------------------------
-# Configure uninstaller
-configure_file(
-  "${PROJECT_SOURCE_DIR}/cmake/macros/UninstallTargets.cmake"
-  "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake" @ONLY
-)
-
-message(STATUS "Linux: configuring uninstall target.")
-
-# -----------------------------------------------------------------------------
-# create uninstaller target (allows for using "make uninstall")
-add_custom_target(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake")
-
-message(STATUS "Linux: created uninstall target.")
-
-# -----------------------------------------------------------------------------
 message(STATUS "Linux: platform configuration finished.")
