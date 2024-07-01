@@ -39,7 +39,9 @@
 #include "G3D/Log.h"
 #include "G3D/FileSystem.h"
 #include <zlib.h>
-#include <zip.h>
+#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
+    #include <zip.h>
+#endif
 #include <cstring>
 
 namespace G3D {
@@ -126,6 +128,7 @@ BinaryInput::BinaryInput
 
     setEndian(fileEndian);
 
+#if _HAVE_ZIP /* G3DFIX: Use ZIP-library only if defined */
     std::string zipfile;
     if (FileSystem::inZipfile(m_filename, zipfile)) {
         // Load from zipfile
@@ -162,7 +165,7 @@ BinaryInput::BinaryInput
         m_freeBuffer = true;
         return;
     }
-
+#endif
     // Figure out how big the file is and verify that it exists.
     m_length = FileSystem::size(m_filename);
 

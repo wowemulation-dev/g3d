@@ -60,8 +60,13 @@ These control the version of Winsock used by G3D.
 /** \def G3D_LINUX*/
 /** \def G3D_OSX */
 
-#ifdef _MSC_VER 
+#ifdef _MSC_VER
 #   define G3D_WINDOWS
+#elif defined(__MINGW32__)
+    #define G3D_WINDOWS
+    #undef __MSVCRT_VERSION__
+    #define __MSVCRT_VERSION__ 0x0601
+    #include <windows.h>
 #elif  defined(__FreeBSD__) || defined(__OpenBSD__)
     #define G3D_FREEBSD
     #define G3D_LINUX
@@ -74,15 +79,12 @@ These control the version of Winsock used by G3D.
    // pi as a constant, which creates a conflict with G3D
 #define __FP__
 #else
-    #error Unknown platform 
+    #error Unknown platform
 #endif
 
 /** \def G3D_64BIT */
 /** \def G3D_32BIT */
 
-#ifndef _MSC_VER
-#    define override
-#endif
 
 
 /** Define the g++ thread-local syntax on all platforms (since the MSVC version would be hard to emulate with a macro) */

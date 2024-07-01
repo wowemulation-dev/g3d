@@ -21,6 +21,7 @@
 #    define _getch getchar
 #endif
 
+#if 0 /* G3DFIX: exclude GUI prompt code */
 #ifdef G3D_OSX
 
 /*#ifdef __LP64__
@@ -37,9 +38,11 @@
 */
 
 #endif
+#endif /* G3DFIX: exclude GUI prompt code */
 
 namespace G3D {
 
+#if 0 /* G3DFIX: exclude GUI prompt code */
 #ifdef G3D_WINDOWS
 
 namespace _internal {
@@ -469,6 +472,7 @@ static int guiPrompt(
 }
 
 #endif
+#endif /* G3DFIX: exclude GUI prompt code */
 
 
 /**
@@ -531,6 +535,7 @@ static int textPrompt(
     return c;
 }
 
+#if 0 /* G3DFIX: exclude GUI prompt code */
 #ifdef G3D_OSX
 
 static int guiPrompt
@@ -544,13 +549,14 @@ static int guiPrompt
 
 #endif
 
+#endif /* G3DFIX: exclude GUI prompt code */
 int prompt(
     const char*      windowTitle,
     const char*      prompt, 
     const char**     choice,
     int              numChoices,
     bool             useGui) {
-
+#if 0 /* G3DFIX: exclude GUI prompt code */
     #ifdef G3D_WINDOWS
         if (useGui) {
             // Build the message box
@@ -566,6 +572,7 @@ int prompt(
 		  return result;
                 }
         #endif
+#endif /* G3DFIX: exclude GUI prompt code */
     return textPrompt(windowTitle, prompt, choice, numChoices);
 }
 

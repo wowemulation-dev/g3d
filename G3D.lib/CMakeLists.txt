@@ -62,7 +62,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set (sources ${sources} ${G3D_COCOA})
 endif()
 
-
 # ---- Create library ----
 
 # Note: for header-only libraries change all PUBLIC flags to INTERFACE and create an interface
@@ -74,8 +73,17 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 11)
 # being a cross-platform target, we enforce standards conformance on MSVC
 target_compile_options(${PROJECT_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/permissive->")
 
+if(G3DLIB_USE_ZIP)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC _HAVE_ZIP)
+endif()
+
 # Link dependencies
-target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB zip)
+if(G3DLIB_USE_ZIP)
+  target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB zip)
+else()
+  target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
+endif()
+
 
 target_include_directories(
   ${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

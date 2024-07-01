@@ -12,6 +12,8 @@ project(
   LANGUAGES CXX
 )
 
+option(G3DLIB_USE_ZIP "Use ZIP library" OFF)
+
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
   message(
     FATAL_ERROR
@@ -34,7 +36,9 @@ CPMAddPackage("gh:TheLartians/Format.cmake@1.8.1")
 # PackageProject.cmake will be used to make our target installable see
 # https://github.com/TheLartians/PackageProject.cmake for more info
 CPMAddPackage("gh:TheLartians/PackageProject.cmake@1.11.2")
-CPMAddPackage("gh:nih-at/libzip@1.10.1")
+if(G3DLIB_USE_ZIP)
+  CPMAddPackage("gh:nih-at/libzip@1.10.1")
+endif()
 
 find_package(ZLIB REQUIRED)
 

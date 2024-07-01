@@ -39,9 +39,11 @@
 #ifdef G3D_LINUX
     // Needed so we can define a global display
     // pointer for debugAssert.
+#if 0 /* G3DFIX: Disabled to avoid requirement for X11 libraries */
     #include <X11/Xlib.h>
     #include <X11/Xutil.h>
     #include <X11/Xatom.h>
+#endif
 #endif
 
 
@@ -178,6 +180,7 @@ namespace _internal {
 namespace G3D {  namespace _internal {
 
 #ifdef G3D_LINUX
+#if 0 /* G3DFIX: Disabled to avoid requirement for X11 libraries */
     /**
      A pointer to the X11 display.  Initially NULL.  If set to a
      non-null value (e.g. by SDLWindow), debugAssert attempts to use
@@ -193,6 +196,7 @@ namespace G3D {  namespace _internal {
      fails.
      */
     extern Window        x11Window;
+#endif
 #endif
 
 /**

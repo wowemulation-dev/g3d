@@ -587,7 +587,7 @@ void System::getStandardProcessorExtensions() {
 #endif
 }
 
-#if defined(G3D_WINDOWS) && defined(_M_IX86)
+#if defined(G3D_WINDOWS) && defined(_M_IX86) && !defined(__MINGW32__) /* G3DFIX: Don't check if on 64-bit Windows platforms or using MinGW */
 // 32-bit
 /** Michael Herf's fast memcpy.  Assumes 16-byte alignment */
 void memcpyMMX(void* dst, const void* src, int nbytes) {
@@ -641,7 +641,7 @@ void memcpyMMX(void* dst, const void* src, int nbytes) {
 #endif
 
 void System::memcpy(void* dst, const void* src, size_t numBytes) {
-#if defined(G3D_WINDOWS) && defined(_M_IX86)
+#if defined(G3D_WINDOWS) && defined(_M_IX86) && !defined(__MINGW32__) /* G3DFIX: Don't check if on 64-bit Windows platforms or using MinGW */
     // The overhead of our memcpy seems to only be worthwhile on large arrays
     if (((size_t)dst % 16 == 0) && ((size_t)src % 16 == 0) && (numBytes > 3400000)) {
         memcpyMMX(dst, src, numBytes);
@@ -656,7 +656,7 @@ void System::memcpy(void* dst, const void* src, size_t numBytes) {
 
 /** Michael Herf's fastest memset. n32 must be filled with the same
     character repeated. */
-#if defined(G3D_WINDOWS) && defined(_M_IX86)
+#if defined(G3D_WINDOWS) && defined(_M_IX86) && !defined(__MINGW32__) /* G3DFIX: Don't check if on 64-bit Windows platforms or using MinGW */
 // On x86 processors, use MMX
 void memfill(void *dst, int n32, unsigned long i) {
 
@@ -694,7 +694,7 @@ void memfill(void *dst, int n32, unsigned long i) {
 
 void System::memset(void* dst, uint8 value, size_t numBytes) {
     alwaysAssertM(dst != NULL, "Cannot memset NULL address.");
-#if defined(G3D_WINDOWS) && defined(_M_IX86)
+#if defined(G3D_WINDOWS) && defined(_M_IX86) && !defined(__MINGW32__) /* G3DFIX: Don't check if on 64-bit Windows platforms or using MinGW */
     if ((((size_t)dst % 16) == 0) && (numBytes >= 512*1024)) {
         uint32 v = value;
         v = v + (v << 8) + (v << 16) + (v << 24); 
